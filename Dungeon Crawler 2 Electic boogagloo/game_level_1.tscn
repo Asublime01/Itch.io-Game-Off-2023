@@ -1700,7 +1700,7 @@ layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = -4
-layer_1/tile_data = PackedInt32Array(196639, 196609, 1, 262175, 196609, 2, 327711, 196609, 3, 196640, 262145, 1, 262176, 262145, 2, 327712, 262145, 3, 196641, 327681, 1, 262177, 327681, 2, 327713, 327681, 3, 196642, 393217, 1, 262178, 393217, 2, 327714, 393217, 3)
+layer_1/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(528, 109)
