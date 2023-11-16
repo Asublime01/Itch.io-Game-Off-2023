@@ -11,13 +11,16 @@ config_version=5
 [application]
 
 config/name="Dungeon Crawler 2 Electic boogagloo"
-run/main_scene="res://game_level_1.tscn"
+run/main_scene="res://Base Level.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/scale=2.0
+window/size/viewport_width=1024
+window/size/viewport_height=900
+window/size/initial_position_type=0
+window/stretch/scale=4.5
 
 [dotnet]
 
