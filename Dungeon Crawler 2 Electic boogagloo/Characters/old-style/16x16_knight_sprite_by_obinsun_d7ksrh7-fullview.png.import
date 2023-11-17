@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdfglojoegovk"
-path="res://.godot/imported/16x16_knight_sprite_by_obinsun_d7ksrh7-fullview.png-06a8ab744723db67779f7fcb2714abec.ctex"
+path="res://.godot/imported/16x16_knight_sprite_by_obinsun_d7ksrh7-fullview.png-2f581a6f49a6fa15a0b1716257b96874.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/16x16_knight_sprite_by_obinsun_d7ksrh7-fullview.png"
-dest_files=["res://.godot/imported/16x16_knight_sprite_by_obinsun_d7ksrh7-fullview.png-06a8ab744723db67779f7fcb2714abec.ctex"]
+source_file="res://Characters/old-style/16x16_knight_sprite_by_obinsun_d7ksrh7-fullview.png"
+dest_files=["res://.godot/imported/16x16_knight_sprite_by_obinsun_d7ksrh7-fullview.png-2f581a6f49a6fa15a0b1716257b96874.ctex"]
 
 [params]
 

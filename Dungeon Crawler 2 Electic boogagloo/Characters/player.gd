@@ -8,8 +8,7 @@ extends CharacterBody2D
 
 
 func _ready():
-	var screenSize = get_viewport_rect().size
-	position = screenSize / 2
+	position = Vector2(512, 450)
 	update_animation_params(starting_direction)
 
 func  _physics_process(_delta):

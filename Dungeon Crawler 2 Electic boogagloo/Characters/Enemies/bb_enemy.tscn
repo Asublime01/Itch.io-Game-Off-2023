@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgw251x3q7k5i"]
+
+[ext_resource type="Texture2D" uid="uid://homt6icu3jl7" path="res://Characters/Enemies/Swordsman/Swordsman_Idle.png" id="1_7iwab"]
+[ext_resource type="Script" path="res://Characters/Enemies/bb_enemy.gd" id="1_dcuyl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v78v5"]
+radius = 143.003
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqytt"]
+size = Vector2(21, 32)
+
+[node name="BBEnemy" type="CharacterBody2D"]
+script = ExtResource("1_dcuyl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7iwab")
+hframes = 3
+vframes = 3
+
+[node name="Detection Area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
+shape = SubResource("CircleShape2D_v78v5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 3)
+shape = SubResource("RectangleShape2D_gqytt")
+
+[connection signal="body_entered" from="Detection Area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="Detection Area" to="." method="_on_detection_area_body_exited"]
