@@ -9,24 +9,46 @@ var idle_right : Sprite2D
 var idle_left : Sprite2D
 var walk_right : Sprite2D
 var walk_left : Sprite2D
+var atk_left : Sprite2D
+var atk_right: Sprite2D
 
 var running_right = false
 var running_left = false
+var temp_pos_x = null
 
 func _ready():
+	# Assign sprites and animation player on scene load
 	idle_right = $idle_right
 	idle_left = $idle_left
 	walk_right = $walk_right
 	walk_left = $walk_left
+	atk_left = $atk_left
+	atk_right = $atk_right
 	animation_player = $AnimationPlayer
 
 func _on_detection_area_body_entered(body):
+	# Check if the entered body is a player, initiate chase
 	player = body
 	chasing_player = true
 
 func _on_detection_area_body_exited(body):
+	# Store the position.x of the body before it exits
+	temp_pos_x = body.position.x
 	player = null
 	chasing_player = false
+	walk_right.visible = false
+	walk_left.visible = false
+	atk_left.visible = false
+	atk_right.visible = false
+	# Determine which idle animation to play based on the stored position.x
+	if temp_pos_x > position.x:
+		idle_left.visible = false
+		idle_right.visible = true
+		animation_player.play("idle_right")
+	elif temp_pos_x < position.x:
+		idle_right.visible = false
+		idle_left.visible = true
+		animation_player.play("idle_left")
 
 func _physics_process(delta):
 	if chasing_player and player:
@@ -46,9 +68,11 @@ func _physics_process(delta):
 				running_left = true
 				running_right = false
 
+			# Move the enemy towards the player
 			position += (player.position - position).normalized() * speed * delta
 
 			if direction != 0:
+				# Show appropriate walk animation
 				idle_right.visible = false
 				idle_left.visible = false
 				walk_right.visible = direction == 1
@@ -59,6 +83,7 @@ func _physics_process(delta):
 				else:
 					animation_player.play("walk_left")
 		else:
+			# Stop chasing, show appropriate idle animation
 			chasing_player = false
 			running_right = false
 			running_left = false
@@ -66,12 +91,25 @@ func _physics_process(delta):
 			idle_left.visible = false
 			walk_left.visible = false
 			walk_right.visible = false
+			atk_left.visible = false
+			atk_right.visible = false
+			var attack_distance = abs(player.position.x - position.x)
 
-			if player.position.x > position.x:
-				idle_left.visible = false
-				idle_right.visible = true
-				animation_player.play("idle_right")
+			if attack_distance >= 25:
+				if player.position.x > position.x:
+					idle_right.visible = true
+					idle_left.visible = false
+					animation_player.play("idle_right")
+				else:
+					idle_right.visible = false
+					idle_left.visible = true
+					animation_player.play("idle_left")
 			else:
-				idle_right.visible = false
-				idle_left.visible = true
-				animation_player.play("idle_left")
+				if player.position.x > position.x:
+					atk_left.visible = false
+					atk_right.visible = true
+					animation_player.play("atk_right")
+				else:
+					atk_left.visible = true
+					atk_right.visible = false
+					animation_player.play("atk_left")

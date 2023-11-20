@@ -1727,10 +1727,3 @@ position = Vector2(653, 344)
 scale = Vector2(0.6, 0.6)
 collision_layer = 3
 collision_mask = 3
-
-[node name="BBEnemy2" parent="." instance=ExtResource("5_m4x2t")]
-z_index = -4
-position = Vector2(692, 403)
-scale = Vector2(0.6, 0.6)
-collision_layer = 3
-collision_mask = 3

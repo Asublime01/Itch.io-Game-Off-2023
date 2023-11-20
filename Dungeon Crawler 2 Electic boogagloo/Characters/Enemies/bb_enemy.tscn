@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgw251x3q7k5i"]
+[gd_scene load_steps=16 format=3 uid="uid://cgw251x3q7k5i"]
 
 [ext_resource type="Texture2D" uid="uid://homt6icu3jl7" path="res://Characters/Enemies/Swordsman/Swordsman_Idle.png" id="1_7iwab"]
 [ext_resource type="Script" path="res://Characters/Enemies/bb_enemy.gd" id="1_dcuyl"]
 [ext_resource type="Texture2D" uid="uid://dgi1subhblwjp" path="res://Characters/Enemies/Swordsman/Swordsman_March.png" id="2_auy74"]
+[ext_resource type="Texture2D" uid="uid://2bldd6x6p3si" path="res://Characters/Enemies/Swordsman/Swordsman_Atk1.png" id="2_i270t"]
 [ext_resource type="Texture2D" uid="uid://q81jom33ku15" path="res://Characters/Enemies/Swordsman/Swordsman_Walk.png" id="3_hoyu4"]
 
 [sub_resource type="Animation" id="Animation_pybn4"]
@@ -10,7 +11,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("idle_right:frame")
+tracks/0/path = NodePath("walk_right:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -22,7 +23,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("walk_right:frame")
+tracks/1/path = NodePath("walk_left:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -34,7 +35,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("idle_left:frame")
+tracks/2/path = NodePath("idle_right:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -46,7 +47,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("walk_left:frame")
+tracks/3/path = NodePath("idle_left:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -55,39 +56,29 @@ tracks/3/keys = {
 "update": 1,
 "values": [0]
 }
-
-[sub_resource type="Animation" id="Animation_j042d"]
-resource_name = "idle_left"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("idle_left:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("atk_left:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
+"values": [0]
 }
-
-[sub_resource type="Animation" id="Animation_kophj"]
-resource_name = "idle_right"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("idle_right:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("atk_right:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_gavom"]
@@ -124,9 +115,79 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 
+[sub_resource type="Animation" id="Animation_kophj"]
+resource_name = "idle_right"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_right:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_j042d"]
+resource_name = "idle_left"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_left:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_qcm7c"]
+resource_name = "atk_left"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("atk_left:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_2us5w"]
+resource_name = "atk_right"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("atk_right:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iifdi"]
 _data = {
 "RESET": SubResource("Animation_pybn4"),
+"atk_left": SubResource("Animation_qcm7c"),
+"atk_right": SubResource("Animation_2us5w"),
 "idle_left": SubResource("Animation_j042d"),
 "idle_right": SubResource("Animation_kophj"),
 "walk_left": SubResource("Animation_gavom"),
@@ -142,23 +203,40 @@ size = Vector2(21, 32)
 [node name="BBEnemy" type="CharacterBody2D"]
 script = ExtResource("1_dcuyl")
 
+[node name="atk_left" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_i270t")
+flip_h = true
+hframes = 3
+vframes = 3
+
+[node name="atk_right" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_i270t")
+hframes = 3
+vframes = 3
+
 [node name="idle_right" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_7iwab")
 hframes = 3
 vframes = 3
 
 [node name="idle_left" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_7iwab")
 flip_h = true
 hframes = 3
 vframes = 3
 
 [node name="walk_right" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_hoyu4")
 hframes = 4
 vframes = 3
 
 [node name="walk_left" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_hoyu4")
 flip_h = true
 hframes = 4
