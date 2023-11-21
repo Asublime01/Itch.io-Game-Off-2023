@@ -16,6 +16,9 @@ var running_right = false
 var running_left = false
 var temp_pos_x = null
 
+var attack_distance_r : float
+var attack_distance_l : float
+
 func _ready():
 	# Assign sprites and animation player on scene load
 	idle_right = $idle_right
@@ -93,23 +96,26 @@ func _physics_process(delta):
 			walk_right.visible = false
 			atk_left.visible = false
 			atk_right.visible = false
-			var attack_distance = abs(player.position.x - position.x)
 
-			if attack_distance >= 25:
-				if player.position.x > position.x:
-					idle_right.visible = true
+			if player.position.x > position.x:
+				attack_distance_r = abs(player.position.x - position.x)
+				if attack_distance_r > stopping_distance:
 					idle_left.visible = false
+					idle_right.visible = true
 					animation_player.play("idle_right")
-				else:
-					idle_right.visible = false
-					idle_left.visible = true
-					animation_player.play("idle_left")
-			else:
-				if player.position.x > position.x:
+				elif attack_distance_r < stopping_distance:
 					atk_left.visible = false
 					atk_right.visible = true
 					animation_player.play("atk_right")
-				else:
+			else:
+				attack_distance_l = abs(position.x - player.position.x)
+				if attack_distance_l > stopping_distance:
+					idle_left.visible = true
+					idle_right.visible = false
+					animation_player.play("idle_left")
+				elif attack_distance_l < stopping_distance:
 					atk_left.visible = true
 					atk_right.visible = false
 					animation_player.play("atk_left")
+			print("Attack Distance R: ", attack_distance_r)
+			print("Attack Distance L: ", attack_distance_l)
