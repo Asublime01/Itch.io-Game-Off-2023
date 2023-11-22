@@ -87,7 +87,7 @@ func _physics_process(delta):
 					animation_player.play("walk_left")
 		else:
 			# Stop chasing, show appropriate idle animation
-			chasing_player = false
+			
 			running_right = false
 			running_left = false
 			idle_right.visible = false
