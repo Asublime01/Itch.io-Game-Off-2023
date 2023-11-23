@@ -11,7 +11,7 @@ extends CharacterBody2D
 func _ready():
 	position = Vector2(512, 450)
 	update_animation_params_player(starting_direction)
-	var is_attacking = connect("attack_state_changed", _on_bb_enemy_attack_state_changed)
+	connect("attack_state_changed", _on_bb_enemy_attack_state_changed)
 func  _physics_process(_delta):
 	var input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),

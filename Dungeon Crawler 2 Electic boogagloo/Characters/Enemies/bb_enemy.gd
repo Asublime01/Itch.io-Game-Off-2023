@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-signal attack_state_changed
-var is_attacking = false
+
 
 var speed = 50
 var chasing_player = false
@@ -64,6 +63,7 @@ func _physics_process(delta):
 		var stopping_distance = 15
 		atk_left.visible = false
 		atk_right.visible = false
+		
 
 		if distance > stopping_distance:
 			var player_pos_x = player.position.x
@@ -111,8 +111,6 @@ func _physics_process(delta):
 					idle_right.visible = true
 					animation_player.play("idle_right")
 				elif attack_distance_r < stopping_distance:
-					is_attacking = true
-					emit_signal("attack_state_changed", is_attacking)
 					atk_left.visible = false
 					atk_right.visible = true
 					animation_player.play("atk_right")
@@ -123,8 +121,6 @@ func _physics_process(delta):
 					idle_right.visible = false
 					animation_player.play("idle_left")
 				elif attack_distance_l < stopping_distance:
-					is_attacking = true
-					emit_signal("attack_state_changed", is_attacking)
 					atk_left.visible = true
 					atk_right.visible = false
 					animation_player.play("atk_left")
