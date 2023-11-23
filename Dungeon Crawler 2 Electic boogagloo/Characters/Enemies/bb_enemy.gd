@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal attack_state_changed
+var is_attacking = false
+
 var speed = 50
 var chasing_player = false
 var player = null
@@ -18,6 +21,8 @@ var temp_pos_x = null
 
 var attack_distance_r : float
 var attack_distance_l : float
+
+
 
 func _ready():
 	# Assign sprites and animation player on scene load
@@ -57,6 +62,8 @@ func _physics_process(delta):
 	if chasing_player and player:
 		var distance = position.distance_to(player.position)
 		var stopping_distance = 15
+		atk_left.visible = false
+		atk_right.visible = false
 
 		if distance > stopping_distance:
 			var player_pos_x = player.position.x
@@ -104,6 +111,8 @@ func _physics_process(delta):
 					idle_right.visible = true
 					animation_player.play("idle_right")
 				elif attack_distance_r < stopping_distance:
+					is_attacking = true
+					emit_signal("attack_state_changed", is_attacking)
 					atk_left.visible = false
 					atk_right.visible = true
 					animation_player.play("atk_right")
@@ -114,8 +123,9 @@ func _physics_process(delta):
 					idle_right.visible = false
 					animation_player.play("idle_left")
 				elif attack_distance_l < stopping_distance:
+					is_attacking = true
+					emit_signal("attack_state_changed", is_attacking)
 					atk_left.visible = true
 					atk_right.visible = false
 					animation_player.play("atk_left")
-			print("Attack Distance R: ", attack_distance_r)
-			print("Attack Distance L: ", attack_distance_l)
+			
