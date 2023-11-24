@@ -4,8 +4,7 @@ signal enemy_attacking
 
 
 var enemy_is_attacking = false
-
-
+var attack_cd = 2
 
 var speed = 50
 var chasing_player = false
@@ -37,10 +36,15 @@ func _ready():
 	atk_left = $atk_left
 	atk_right = $atk_right
 	animation_player = $AnimationPlayer
+	idle_left.visible = true
+	animation_player.play("idle_left")
 func _on_detection_area_body_entered(body):
 	# Check if the entered body is a player, initiate chase
-	player = body
-	chasing_player = true
+	if body == $"../Player":
+		player = body
+		chasing_player = true
+	else:
+		return
 	
 
 func _on_detection_area_body_exited(body):
@@ -120,7 +124,11 @@ func _physics_process(delta):
 					animation_player.play("idle_right")
 				elif attack_distance_r < stopping_distance:
 					enemy_is_attacking = true
-					emit_signal("enemy_attacking")
+					if attack_cd > 0:
+						attack_cd -= delta
+					else:
+						emit_signal("enemy_attacking")
+						attack_cd = 2
 					atk_left.visible = false
 					atk_right.visible = true
 					animation_player.play("atk_right")
@@ -133,7 +141,11 @@ func _physics_process(delta):
 					animation_player.play("idle_left")
 				elif attack_distance_l < stopping_distance:
 					enemy_is_attacking = true
-					emit_signal("enemy_attacking")
+					if attack_cd > 0:
+						attack_cd -= delta
+					else:
+						emit_signal("enemy_attacking")
+						attack_cd = 2
 					atk_left.visible = true
 					atk_right.visible = false
 					animation_player.play("atk_left")

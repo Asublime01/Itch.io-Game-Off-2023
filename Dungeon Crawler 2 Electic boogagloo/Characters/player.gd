@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var state_machine = animation_tree.get("parameters/playback")
 var enemy_is_attacking = false
 var is_not_detected = false
+var attack_cd = 2
 
 
 func _ready():
@@ -56,15 +57,9 @@ func check_detection_pos(): #Quadrants go left to right top down
 		return true
 
 
-func _on_bb_enemy_enemy_attacking():
-	is_not_detected = check_detection_pos()
-	if position == Vector2(512, 450):
-		pass
-	elif velocity != Vector2.ZERO: #player is moving
-		pass
-	elif velocity == Vector2.ZERO and is_not_detected: #player is not moving but hasn't been detected
-		pass
-	else:
-		print("Enemy is attacking")
+func _on_bb_enemy_enemy_attacking():	
+	player_health -= 5
+	print("Player health: ", player_health)
+		
 
 
