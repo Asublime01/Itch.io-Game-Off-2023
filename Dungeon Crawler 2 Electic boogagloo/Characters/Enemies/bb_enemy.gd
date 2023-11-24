@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+signal enemy_attacking
+
+
+var enemy_is_attacking = false
+
 
 
 var speed = 50
@@ -32,11 +37,11 @@ func _ready():
 	atk_left = $atk_left
 	atk_right = $atk_right
 	animation_player = $AnimationPlayer
-
 func _on_detection_area_body_entered(body):
 	# Check if the entered body is a player, initiate chase
 	player = body
 	chasing_player = true
+	
 
 func _on_detection_area_body_exited(body):
 	# Store the position.x of the body before it exits
@@ -57,12 +62,13 @@ func _on_detection_area_body_exited(body):
 		idle_left.visible = true
 		animation_player.play("idle_left")
 
-func _physics_process(delta):
+func _physics_process(delta): 
 	if chasing_player and player:
 		var distance = position.distance_to(player.position)
 		var stopping_distance = 15
 		atk_left.visible = false
 		atk_right.visible = false
+		enemy_is_attacking = false
 		
 
 		if distance > stopping_distance:
@@ -92,6 +98,7 @@ func _physics_process(delta):
 					animation_player.play("walk_right")
 				else:
 					animation_player.play("walk_left")
+		
 		else:
 			# Stop chasing, show appropriate idle animation
 			
@@ -104,24 +111,31 @@ func _physics_process(delta):
 			atk_left.visible = false
 			atk_right.visible = false
 
-			if player.position.x > position.x:
+			if player.position.x > position.x: #If player is to the right
 				attack_distance_r = abs(player.position.x - position.x)
 				if attack_distance_r > stopping_distance:
+					enemy_is_attacking = false
 					idle_left.visible = false
 					idle_right.visible = true
 					animation_player.play("idle_right")
 				elif attack_distance_r < stopping_distance:
+					enemy_is_attacking = true
+					emit_signal("enemy_attacking")
 					atk_left.visible = false
 					atk_right.visible = true
 					animation_player.play("atk_right")
 			else:
 				attack_distance_l = abs(position.x - player.position.x)
 				if attack_distance_l > stopping_distance:
+					enemy_is_attacking = false
 					idle_left.visible = true
 					idle_right.visible = false
 					animation_player.play("idle_left")
 				elif attack_distance_l < stopping_distance:
+					enemy_is_attacking = true
+					emit_signal("enemy_attacking")
 					atk_left.visible = true
 					atk_right.visible = false
 					animation_player.play("atk_left")
-			
+
+

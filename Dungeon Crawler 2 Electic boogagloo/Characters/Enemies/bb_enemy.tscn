@@ -249,7 +249,6 @@ libraries = {
 metadata/March = ExtResource("2_auy74")
 
 [node name="Detection Area" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 2
 

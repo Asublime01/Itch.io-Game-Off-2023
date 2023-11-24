@@ -6,12 +6,16 @@ extends CharacterBody2D
 # parameters/Idle/blend_position
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
+var enemy_is_attacking = false
+var is_not_detected = false
 
 
 func _ready():
 	position = Vector2(512, 450)
 	update_animation_params_player(starting_direction)
-	connect("attack_state_changed", _on_bb_enemy_attack_state_changed)
+	
+
+	
 func  _physics_process(_delta):
 	var input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
@@ -33,11 +37,34 @@ func pick_new_state():
 		state_machine.travel("Walk")
 	else:
 		state_machine.travel("Idle")
-
-
-
-func _on_bb_enemy_attack_state_changed(is_attacking):
-	if is_attacking:
-		print("enemy is attacking!!!!!")
+		
+func check_detection_pos(): #Quadrants go left to right top down
+	var firstQuad = true #Player is not in the quadrants
+	var secondQuad = true
+	var thirdQuad = true
+	var fourthQuad = true
+	
+	if position.y <= 344 and position.y >= 59 and position.x > 368:
+		firstQuad = false
+	elif position.y <= 344 and position.y >= 59 and position.x < 938:
+		secondQuad = false
+	elif position.y >= 344 and position.y <= 629 and position.x > 368:
+		thirdQuad = false
+	elif position.y >= 344 and position.y <= 629 and position.x < 938:
+		fourthQuad = false
 	else:
-		print("Enemy stopped attacking.")
+		return true
+
+
+func _on_bb_enemy_enemy_attacking():
+	is_not_detected = check_detection_pos()
+	if position == Vector2(512, 450):
+		pass
+	elif velocity != Vector2.ZERO: #player is moving
+		pass
+	elif velocity == Vector2.ZERO and is_not_detected: #player is not moving but hasn't been detected
+		pass
+	else:
+		print("Enemy is attacking")
+
+

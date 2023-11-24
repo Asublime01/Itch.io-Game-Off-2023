@@ -1693,7 +1693,7 @@ pattern_0 = SubResource("TileMapPattern_41g20")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Player" parent="." instance=ExtResource("1_m3r12")]
-position = Vector2(513, 449)
+position = Vector2(512, 450)
 collision_layer = 3
 collision_mask = 3
 move_speed = 250.0
@@ -1719,7 +1719,7 @@ layer_1/z_index = -4
 layer_1/tile_data = PackedInt32Array(327684, 0, 7, 327683, 0, 7, 327682, 0, 7, 327681, 0, 7, 327680, 0, 7, 393215, 0, 7, 393214, 0, 7, 393213, 0, 7, 393212, 0, 7, 393211, 0, 7, -327685, 0, 7, -327684, 0, 7, -327683, 0, 7, -327682, 0, 7, -327681, 0, 7, -393216, 0, 7, -393215, 0, 7, -393214, 0, 7, -393213, 0, 7, -393212, 0, 7)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(513, 449)
+position = Vector2(512, 450)
 
 [node name="BBEnemy" parent="." instance=ExtResource("5_m4x2t")]
 z_index = -4
@@ -1727,3 +1727,5 @@ position = Vector2(653, 344)
 scale = Vector2(0.6, 0.6)
 collision_layer = 3
 collision_mask = 3
+
+[connection signal="enemy_attacking" from="BBEnemy" to="Player" method="_on_bb_enemy_enemy_attacking"]
