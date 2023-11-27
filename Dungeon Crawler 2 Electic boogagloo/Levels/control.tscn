@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bju86qf66jbit"]
+[gd_scene load_steps=10 format=3 uid="uid://bju86qf66jbit"]
 
 [ext_resource type="Script" path="res://Levels/control.gd" id="1_wcs6e"]
+[ext_resource type="Texture2D" uid="uid://dynx0bcv6r3xw" path="res://UI/playbutton.png" id="2_xnifo"]
+[ext_resource type="Texture2D" uid="uid://f20a8hal51nj" path="res://UI/settingsbutton.png" id="3_drtpx"]
+[ext_resource type="Texture2D" uid="uid://cqbs51f47tn03" path="res://UI/quitbutton.png" id="4_7sq86"]
+[ext_resource type="Texture2D" uid="uid://bcym0g2d3l068" path="res://UI/title.png" id="5_eljtd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qrert"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6qij"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4frbs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtguu"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -13,8 +25,11 @@ script = ExtResource("1_wcs6e")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 197.0
-offset_bottom = 189.0
+offset_left = 16.0
+offset_top = 75.0
+offset_right = 213.0
+offset_bottom = 131.0
+scale = Vector2(1, 1.00297)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -24,24 +39,43 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.431373, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.364706, 0.364706, 0.364706, 1)
-text = "Play Game
-"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qrert")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_l6qij")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_l6qij")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_l6qij")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l6qij")
+icon = ExtResource("2_xnifo")
+icon_alignment = 1
 
 [node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.980392, 0.372549, 0.333333, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.388235, 0.388235, 0.388235, 1)
-text = "Settings
-"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4frbs")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4frbs")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4frbs")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4frbs")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4frbs")
+icon = ExtResource("3_drtpx")
+icon_alignment = 1
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.301961, 0.301961, 0.301961, 1)
-text = "Quit
-"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rtguu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rtguu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rtguu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rtguu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rtguu")
+icon = ExtResource("4_7sq86")
+icon_alignment = 1
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(116, 47)
+texture = ExtResource("5_eljtd")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

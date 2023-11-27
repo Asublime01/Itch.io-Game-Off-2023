@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o6if8fycqtyv"
-path="res://.godot/imported/new_lava_biome_tiles.png-fe96f419c10389739575ac47fee193cc.ctex"
+uid="uid://h1ihlsg64tvt"
+path="res://.godot/imported/forestwaterspritesheet.png-530fa748c202161d16a01db164fcffa4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/TileSets/new_lava_biome_tiles.png"
-dest_files=["res://.godot/imported/new_lava_biome_tiles.png-fe96f419c10389739575ac47fee193cc.ctex"]
+source_file="res://Levels/TileSets/forestwaterspritesheet.png"
+dest_files=["res://.godot/imported/forestwaterspritesheet.png-530fa748c202161d16a01db164fcffa4.ctex"]
 
 [params]
 
