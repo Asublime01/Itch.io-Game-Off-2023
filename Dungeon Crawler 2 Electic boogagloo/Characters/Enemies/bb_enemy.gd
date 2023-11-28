@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal enemy_attacking
 
-
+@export var enemy_health: float = 100
 var enemy_is_attacking = false
 var attack_cd = 2
 
@@ -25,6 +25,8 @@ var temp_pos_x = null
 var attack_distance_r : float
 var attack_distance_l : float
 
+var player_attacking = false
+
 
 
 func _ready():
@@ -38,6 +40,7 @@ func _ready():
 	animation_player = $AnimationPlayer
 	idle_left.visible = true
 	animation_player.play("idle_left")
+	
 func _on_detection_area_body_entered(body):
 	# Check if the entered body is a player, initiate chase
 	if body == $"../Player":
@@ -149,5 +152,17 @@ func _physics_process(delta):
 					atk_left.visible = true
 					atk_right.visible = false
 					animation_player.play("atk_left")
+					
 
 
+
+
+
+
+func _on_player_player_is_attacking():
+	var player = $"../Player"
+	if abs(position.x - player.position.x) <= 15:
+		enemy_health -= 5
+		print("Enemy Health: ", enemy_health)
+	else:
+		return

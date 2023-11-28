@@ -2152,4 +2152,5 @@ scale = Vector2(0.6, 0.6)
 collision_layer = 3
 collision_mask = 3
 
+[connection signal="Player_Is_Attacking" from="Player" to="BBEnemy" method="_on_player_player_is_attacking"]
 [connection signal="enemy_attacking" from="BBEnemy" to="Player" method="_on_bb_enemy_enemy_attacking"]
