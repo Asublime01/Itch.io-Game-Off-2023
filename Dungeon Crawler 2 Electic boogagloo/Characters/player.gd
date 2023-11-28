@@ -9,12 +9,13 @@ extends CharacterBody2D
 var enemy_is_attacking = false
 var is_not_detected = false
 var attack_cd = 2
+var animation_player : AnimationPlayer
 
 
 func _ready():
 	position = Vector2(512, 450)
 	update_animation_params_player(starting_direction)
-	
+	animation_player = $AnimationPlayer
 
 	
 func  _physics_process(_delta):
@@ -28,16 +29,20 @@ func  _physics_process(_delta):
 	move_and_slide()
 	pick_new_state()
 
+
 func update_animation_params_player(move_input : Vector2):
 	if(move_input != Vector2.ZERO):
 		animation_tree.set("parameters/Walk/blend_position", move_input)
 		animation_tree.set("parameters/Idle/blend_position", move_input)
+		animation_tree.set("parameters/Attack/blend_position", move_input)
 
 func pick_new_state():
 	if(velocity != Vector2.ZERO):
 		state_machine.travel("Walk")
 	else:
 		state_machine.travel("Idle")
+	if Input.is_key_pressed(KEY_SPACE):
+		state_machine.travel("Attack")
 		
 func check_detection_pos(): #Quadrants go left to right top down
 	var firstQuad = true #Player is not in the quadrants
