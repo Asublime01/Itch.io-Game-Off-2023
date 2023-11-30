@@ -4,7 +4,7 @@ signal enemy_attacking
 
 @export var enemy_health: float = 100
 var enemy_is_attacking = false
-var attack_cd = 2
+var attack_cd = 1.5
 
 var speed = 50
 var chasing_player = false
@@ -45,6 +45,7 @@ func _ready():
 	idle_left.visible = true
 	animation_player.play("idle_left")
 	cooldown_timer = $"../PlayerAttackCooldown"
+	atk_left.visible = false
 	
 func _on_detection_area_body_entered(body):
 	# Check if the entered body is a player, initiate chase
@@ -153,7 +154,7 @@ func _physics_process(delta):
 						attack_cd -= delta
 					else:
 						emit_signal("enemy_attacking")
-						attack_cd = 2
+						attack_cd = 1.5
 					atk_left.visible = true
 					atk_right.visible = false
 					animation_player.play("atk_left")
@@ -165,6 +166,7 @@ func _physics_process(delta):
 
 func _on_player_player_is_attacking():
 	var player = $"../Player"
+	
 	if abs(position.x - player.position.x) <= 15 and player_can_attack:
 		enemy_health -= 5
 		print("Enemy Health: ", enemy_health)

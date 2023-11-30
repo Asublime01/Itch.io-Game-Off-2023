@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://cgw251x3q7k5i"]
+[gd_scene load_steps=19 format=3 uid="uid://cgw251x3q7k5i"]
 
 [ext_resource type="Texture2D" uid="uid://homt6icu3jl7" path="res://Characters/Enemies/Swordsman/Swordsman_Idle.png" id="1_7iwab"]
 [ext_resource type="Script" path="res://Characters/Enemies/bb_enemy.gd" id="1_dcuyl"]
 [ext_resource type="Texture2D" uid="uid://dgi1subhblwjp" path="res://Characters/Enemies/Swordsman/Swordsman_March.png" id="2_auy74"]
 [ext_resource type="Texture2D" uid="uid://2bldd6x6p3si" path="res://Characters/Enemies/Swordsman/Swordsman_Atk1.png" id="2_i270t"]
 [ext_resource type="Texture2D" uid="uid://q81jom33ku15" path="res://Characters/Enemies/Swordsman/Swordsman_Walk.png" id="3_hoyu4"]
+[ext_resource type="Texture2D" uid="uid://bkn48lvbfi5ok" path="res://Characters/Enemies/Swordsman/Swordsman_Hit.png" id="5_03nd8"]
 
 [sub_resource type="Animation" id="Animation_pybn4"]
 length = 0.001
@@ -75,6 +76,30 @@ tracks/5/path = NodePath("atk_right:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("hurt_right:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("hurt_left:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -183,11 +208,47 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 
+[sub_resource type="Animation" id="Animation_hyxs2"]
+resource_name = "hurt_right"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hurt_right:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_e8gxa"]
+resource_name = "hurt_left"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hurt_left:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iifdi"]
 _data = {
 "RESET": SubResource("Animation_pybn4"),
 "atk_left": SubResource("Animation_qcm7c"),
 "atk_right": SubResource("Animation_2us5w"),
+"hurt_left": SubResource("Animation_e8gxa"),
+"hurt_right": SubResource("Animation_hyxs2"),
 "idle_left": SubResource("Animation_j042d"),
 "idle_right": SubResource("Animation_kophj"),
 "walk_left": SubResource("Animation_gavom"),
@@ -241,6 +302,19 @@ texture = ExtResource("3_hoyu4")
 flip_h = true
 hframes = 4
 vframes = 3
+
+[node name="hurt_right" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_03nd8")
+hframes = 3
+vframes = 2
+
+[node name="hurt_left" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_03nd8")
+flip_h = true
+hframes = 3
+vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

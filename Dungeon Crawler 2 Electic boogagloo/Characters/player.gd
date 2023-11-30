@@ -12,7 +12,9 @@ signal Player_Is_Attacking
 var enemy_is_attacking = false
 var is_not_detected = false
 var animation_player : AnimationPlayer
-
+var player_is_attacking = false
+var hurt_timer : Timer
+var hurt_duration = 1.5 #Animation plays 3 times
 
 
 
@@ -20,7 +22,7 @@ func _ready():
 	position = Vector2(512, 450)
 	update_animation_params_player(starting_direction)
 	animation_player = $AnimationPlayer
-
+	hurt_timer = $HurtAnimationDuration
 	
 func  _physics_process(_delta):
 	var input_direction = Vector2(
@@ -32,15 +34,18 @@ func  _physics_process(_delta):
 	
 	move_and_slide()
 	pick_new_state()
-
+	if player_health <= 0:
+		get_tree().quit() #PLEASE change this to a transition into a game over scene Thanks!!
 
 func update_animation_params_player(move_input : Vector2):
 	if(move_input != Vector2.ZERO):
 		animation_tree.set("parameters/Walk/blend_position", move_input)
 		animation_tree.set("parameters/Idle/blend_position", move_input)
 		animation_tree.set("parameters/Attack/blend_position", move_input)
+		animation_tree.set("parameters/Hurt/blend_position", move_input)
 
 func pick_new_state():
+	player_is_attacking = false
 	if(velocity != Vector2.ZERO):
 		state_machine.travel("Walk")
 	else:
@@ -48,6 +53,7 @@ func pick_new_state():
 	if Input.is_key_pressed(KEY_SPACE):
 		state_machine.travel("Attack")
 		emit_signal("Player_Is_Attacking")
+		player_is_attacking = true
 		
 		
 func check_detection_pos(): #Quadrants go left to right top down
@@ -68,8 +74,24 @@ func check_detection_pos(): #Quadrants go left to right top down
 		return true
 
 
-func _on_bb_enemy_enemy_attacking():	
+func _on_bb_enemy_enemy_attacking():
 	player_health -= 5
-	
-		
+	print("Health: ", player_health)
+	if not player_is_attacking:
+		state_machine.travel("Hurt")
+		state_machine.travel("Hurt")
+		state_machine.travel("Hurt")
+		hurt_timer.start(hurt_duration)
+	elif player_is_attacking:
+		state_machine.travel("Hurt Attack")
+		state_machine.travel("Hurt Attack")
+		state_machine.travel("Hurt Attack")
+		hurt_timer.start(hurt_duration)
+	else:
+		return
 
+
+
+
+func _on_hurt_animation_duration_timeout():
+	state_machine.travel("Idle")
