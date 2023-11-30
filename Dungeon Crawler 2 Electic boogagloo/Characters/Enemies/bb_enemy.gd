@@ -27,6 +27,10 @@ var attack_distance_l : float
 
 var player_attacking = false
 
+var cooldown_timer : Timer
+var player_can_attack = true
+
+
 
 
 func _ready():
@@ -40,6 +44,7 @@ func _ready():
 	animation_player = $AnimationPlayer
 	idle_left.visible = true
 	animation_player.play("idle_left")
+	cooldown_timer = $"../PlayerAttackCooldown"
 	
 func _on_detection_area_body_entered(body):
 	# Check if the entered body is a player, initiate chase
@@ -158,11 +163,24 @@ func _physics_process(delta):
 
 
 
-
 func _on_player_player_is_attacking():
 	var player = $"../Player"
-	if abs(position.x - player.position.x) <= 15:
+	if abs(position.x - player.position.x) <= 15 and player_can_attack:
 		enemy_health -= 5
 		print("Enemy Health: ", enemy_health)
+		player_can_attack = false
+		cooldown_timer.start(1.0)
 	else:
 		return
+		
+
+
+
+
+
+
+
+
+
+func _on_player_attack_cooldown_timeout():
+	player_can_attack = true
