@@ -333,5 +333,8 @@ shape = SubResource("CircleShape2D_v78v5")
 position = Vector2(1.5, 3)
 shape = SubResource("RectangleShape2D_gqytt")
 
+[node name="HurtTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="Detection Area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="Detection Area" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
