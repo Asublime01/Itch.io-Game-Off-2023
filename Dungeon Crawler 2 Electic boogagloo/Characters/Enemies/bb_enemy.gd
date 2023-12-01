@@ -81,6 +81,7 @@ func _on_detection_area_body_exited(body):
 		animation_player.play("idle_left")
 
 func _physics_process(delta): 
+	update_health()
 	if chasing_player and player:
 		var distance = position.distance_to(player.position)
 		var stopping_distance = 15
@@ -206,3 +207,12 @@ func _on_player_attack_cooldown_timeout():
 
 func _on_hurt_timer_timeout():
 	animation_player.stop()
+	
+func update_health():
+	var health_bar = $EnemyHealthBar
+	health_bar.value = enemy_health
+	
+	if enemy_health >= 100:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true

@@ -25,6 +25,7 @@ func _ready():
 	hurt_timer = $HurtAnimationDuration
 	
 func  _physics_process(_delta):
+	update_health()
 	var input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
@@ -95,3 +96,13 @@ func _on_bb_enemy_enemy_attacking():
 
 func _on_hurt_animation_duration_timeout():
 	state_machine.travel("Idle")
+	
+
+func update_health():
+	var health_bar = $PlayerHealthBar
+	health_bar.value = player_health
+	
+	if player_health >= 100:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true
