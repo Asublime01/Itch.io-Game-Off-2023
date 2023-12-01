@@ -55,6 +55,7 @@ Face off against a variety of enemies, each with its unique attacks. Survive the
     - efetusder
     - Xevin
     - @javikolog
+    - fkgcluster
 
 - **Feedback:**
   - Your feedback is crucial to improving our game. Please share your thoughts and suggestions.
