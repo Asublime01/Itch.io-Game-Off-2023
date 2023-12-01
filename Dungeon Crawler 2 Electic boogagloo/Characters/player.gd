@@ -13,17 +13,32 @@ var enemy_is_attacking = false
 var is_not_detected = false
 var animation_player : AnimationPlayer
 var player_is_attacking = false
-
-
+var can_quit = false
+var dying_timer : Timer
+var player_sprite : Sprite2D
+var dying_sprite : Sprite2D
 
 
 func _ready():
 	position = Vector2(512, 450)
 	update_animation_params_player(starting_direction)
 	animation_player = $AnimationPlayer
-
-	
+	dying_timer = $DyingTimer
+	player_sprite = $"Player Sprite"
+	dying_sprite = $"Dying Sprite"
+	player_sprite.visible = true
+	dying_sprite.visible = false 
 func  _physics_process(_delta):
+	if player_health <= 0:
+		state_machine.travel("End")
+		player_sprite.visible = false
+		dying_sprite.visible = true
+		animation_player.play("player_die")
+		dying_timer.start(3)
+		if can_quit:
+			get_tree().change_scene_to_file("res://Levels/game_over.tscn")
+		else:
+			animation_player.play("player_die")
 	update_health()
 	var input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
@@ -34,8 +49,7 @@ func  _physics_process(_delta):
 	
 	move_and_slide()
 	pick_new_state()
-	if player_health <= 0:
-		get_tree().quit() #PLEASE change this to a transition into a game over scene Thanks!!
+	
 
 func update_animation_params_player(move_input : Vector2):
 	if(move_input != Vector2.ZERO):
@@ -75,8 +89,7 @@ func check_detection_pos(): #Quadrants go left to right top down
 
 
 func _on_bb_enemy_enemy_attacking():
-	player_health -= 5
-	print("Health: ", player_health)
+	player_health -= 30
 	
 
 
@@ -93,3 +106,13 @@ func update_health():
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
+
+
+func _on_animation_player_animation_finished(anim_name):
+	can_quit = true
+
+
+func _on_dying_timer_timeout():
+	can_quit = true
+
+

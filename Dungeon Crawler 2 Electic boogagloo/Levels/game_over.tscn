@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbof8t61pvafq"]
+
+[ext_resource type="Script" path="res://Game Over.gd" id="1_tw4m2"]
+[ext_resource type="Texture2D" uid="uid://dynx0bcv6r3xw" path="res://UI/playbutton.png" id="2_mqksf"]
+
+[node name="Game Over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tw4m2")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 268.0
+offset_right = 992.0
+offset_bottom = 425.0
+theme_override_colors/font_color = Color(0.87451, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.576471, 0.576471, 0.576471, 1)
+theme_override_font_sizes/font_size = 72
+text = "GAME OVER "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Label"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 133.0
+offset_right = 690.0
+offset_bottom = 211.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Oh no!! You Died!!!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Label/Label"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 91.0
+offset_right = 380.0
+offset_bottom = 117.0
+text = "Thank you so much for playing our first game!!!
+
+
+Restart?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="Label/Label/Label"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 93.0
+offset_right = 169.0
+offset_bottom = 121.0
+scale = Vector2(3, 3)
+icon = ExtResource("2_mqksf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(512, 450)
+
+[connection signal="pressed" from="Label/Label/Label/Restart" to="." method="_on_restart_pressed"]

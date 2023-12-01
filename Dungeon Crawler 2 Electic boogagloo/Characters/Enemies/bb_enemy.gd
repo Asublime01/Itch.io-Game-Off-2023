@@ -80,6 +80,9 @@ func _on_detection_area_body_exited(body):
 
 func _physics_process(delta): 
 	update_health()
+	if enemy_health <= 0:
+		queue_free()
+		
 	if chasing_player and player:
 		var distance = position.distance_to(player.position)
 		var stopping_distance = 15
@@ -171,8 +174,7 @@ func _physics_process(delta):
 func _on_player_player_is_attacking():
 	var player = $"../Player"
 	if abs(position.x - player.position.x) <= 15 and player_can_attack:
-		enemy_health -= 5
-		print("Enemy Health: ", enemy_health)
+		enemy_health -= 10
 		player_can_attack = false
 		cooldown_timer.start(1.0)
 
