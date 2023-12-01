@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Dungeon Crawler 2 Electic boogagloo"
+config/name="Dungeon of Monkergaa"
 run/main_scene="res://Levels/control.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
