@@ -13,8 +13,7 @@ var enemy_is_attacking = false
 var is_not_detected = false
 var animation_player : AnimationPlayer
 var player_is_attacking = false
-var hurt_timer : Timer
-var hurt_duration = 1.5 #Animation plays 3 times
+
 
 
 
@@ -22,7 +21,7 @@ func _ready():
 	position = Vector2(512, 450)
 	update_animation_params_player(starting_direction)
 	animation_player = $AnimationPlayer
-	hurt_timer = $HurtAnimationDuration
+
 	
 func  _physics_process(_delta):
 	update_health()
@@ -78,24 +77,12 @@ func check_detection_pos(): #Quadrants go left to right top down
 func _on_bb_enemy_enemy_attacking():
 	player_health -= 5
 	print("Health: ", player_health)
-	if not player_is_attacking:
-		state_machine.travel("Hurt")
-		state_machine.travel("Hurt")
-		state_machine.travel("Hurt")
-		hurt_timer.start(hurt_duration)
-	elif player_is_attacking:
-		state_machine.travel("Hurt Attack")
-		state_machine.travel("Hurt Attack")
-		state_machine.travel("Hurt Attack")
-		hurt_timer.start(hurt_duration)
-	else:
-		return
+	
 
 
 
 
-func _on_hurt_animation_duration_timeout():
-	state_machine.travel("Idle")
+
 	
 
 func update_health():

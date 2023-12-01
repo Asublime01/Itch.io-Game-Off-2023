@@ -32,7 +32,6 @@ var player_attacking = false
 var cooldown_timer : Timer
 var player_can_attack = true
 
-var hurt_timer : Timer
 
 
 
@@ -51,7 +50,6 @@ func _ready():
 	idle_left.visible = true
 	animation_player.play("idle_left")
 	cooldown_timer = $"../PlayerAttackCooldown"
-	hurt_timer = $HurtTimer
 func _on_detection_area_body_entered(body):
 	# Check if the entered body is a player, initiate chase
 	if body == $"../Player":
@@ -172,25 +170,12 @@ func _physics_process(delta):
 
 func _on_player_player_is_attacking():
 	var player = $"../Player"
-	hurt_left.visible = false
-	hurt_right.visible = false
 	if abs(position.x - player.position.x) <= 15 and player_can_attack:
 		enemy_health -= 5
 		print("Enemy Health: ", enemy_health)
 		player_can_attack = false
 		cooldown_timer.start(1.0)
-		if player.position.x > position.x:
-			hurt_left.visible = false
-			hurt_right.visible = true
-			animation_player.play("hurt_right")
-		else:
-			hurt_left.visible = true
-			hurt_right.visible = false
-			animation_player.play("hurt_left")
-		
-		hurt_timer.start(1.0)
-	else:
-		return
+
 		
 
 
